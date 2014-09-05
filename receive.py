@@ -34,9 +34,10 @@ class Consumer(multiprocessing.Process):
         self.queue = queue
 
     def run(self):
-        # credentials = pika.PlainCredentials("snort", "6a0d92e5a89034069686987f421736d0")
-        credentials = pika.PlainCredentials("voilet", "voilet")
-        conn_params = pika.ConnectionParameters("192.168.49.5"
+        credentials = pika.PlainCredentials("snort", "6a0d92e5a89034069686987f421736d0")
+        # credentials = pika.PlainCredentials("voilet", "voilet")
+        conn_params = pika.ConnectionParameters("localhost"
+        # conn_params = pika.ConnectionParameters("192.168.49.5"
                                                 "", credentials=credentials)
         connection = pika.BlockingConnection(conn_params)
 
