@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+#!/usr/bin/env python
 #-*- coding: utf-8 -*-
 #=============================================================================
 #     FileName: test.py
@@ -25,13 +25,14 @@ from config.whiteurl import *
 import pika
 
 
-pc = pcap.pcap("p2p1")    #注，参数可为网卡名，如eth0
+pc = pcap.pcap("eth0")    #注，参数可为网卡名，如eth0
 pc.setfilter('tcp port 80')    #设置监听过滤器
 
 
-# credentials = pika.PlainCredentials("voilet", "voilet")
-credentials = pika.PlainCredentials("snort", "6a0d92e5a89034069686987f421736d0")
-conn_params = pika.ConnectionParameters("localhost", credentials=credentials)
+credentials = pika.PlainCredentials("voilet", "voilet")
+# credentials = pika.PlainCredentials("snort", "6a0d92e5a89034069686987f421736d0")
+# conn_params = pika.ConnectionParameters("localhost", credentials=credentials)
+conn_params = pika.ConnectionParameters("192.168.49.5", credentials=credentials)
 connection = pika.BlockingConnection(conn_params)
 
 channel = connection.channel()
