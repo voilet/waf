@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 #-*- coding: utf-8 -*-
 #=============================================================================
 #     FileName: check_data.py
@@ -12,7 +12,6 @@
 #=============================================================================
 import acl
 import re
-import os
 
 #初始化ip库
 from api.QQWry import *
@@ -21,7 +20,7 @@ from api.QQWry import *
 from config.whiteurl import *
 import acl
 
-tt = IPSearch(os.getcwd() + '/api/QQWry.Dat')
+tt = IPSearch('/home/jm/data/hacker/api/QQWry.Dat')
 
 class hack_filter:
     """
@@ -32,7 +31,11 @@ class hack_filter:
 
     def __init__(self, http_data):
         self.uri = http_data.uri
-        self.user_agent = http_data.headers["user-agent"]
+        user_agent_data = http_data.headers.get("user-agent", False)
+        if user_agent_data:
+            self.user_agent = http_data.headers["user-agent"]
+        else:
+            self.user_agent = "None"
         if http_data.headers.get("cookie"):
             self.cookie = http_data.headers["cookie"]
         else:
@@ -48,9 +51,17 @@ class hack_filter:
         """
         if self.cookie:
             for rule in acl.cookie_acl:
-                result = re.compile(rule).findall(self.cookie)
-                if result:
-                    return {"status": True, "acl": rule}
+                #result = re.compile(rule).findall(self.cookie)
+                #if result:
+                #    return {"status": True, "acl": rule}
+                try:
+                    result = re.compile(rule).findall(self.cookie)
+                    if result:
+                        return {"status": True, "acl": rule}
+                except Exception, e:
+                    result = re.compile(rule).findall(','.join(self.cookie))
+                    if result:
+                        return {"status": True, "acl": rule}
         if self.body:
             for rule in acl.post_acl:
                 result = re.compile(rule).findall(self.body)
@@ -124,8 +135,7 @@ class hackerinfo:
                 "提交数据: %s\n" \
                 "详细信息: %s\n" \
                 "匹配规则: %s\n--------------------------------------\n" % \
-                (self.src_time, domain, self.src_ip, self.host, hacker_city, hacker_addr, self.user_agent, self.body, self.headers, self.acl)
-
+                (self.src_time, domain, self.host, self.src_ip, hacker_city, hacker_addr, self.user_agent, self.body, self.headers, self.acl)
             return s
 
         else:
@@ -143,6 +153,5 @@ class hackerinfo:
                 "状态: GET\n" \
                 "详细信息: %s\n" \
                 "匹配规则: %s\n--------------------------------------\n" % \
-                (self.src_time, domain, self.src_ip, self.host, hacker_city, hacker_addr, self.user_agent, self.headers, self.acl)
-
+                (self.src_time, domain, self.host, self.src_ip, hacker_city, hacker_addr, self.user_agent, self.headers, self.acl)
             return s

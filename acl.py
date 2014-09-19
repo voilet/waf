@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 #-*- coding: utf-8 -*-
 #=============================================================================
 #     FileName: acl.py
@@ -78,7 +78,8 @@ post_acl = [
     "(gopher|doc|php|glob|file|phar|zlib|ftp|ldap|dict|ogg|data)\:\/",
     "java\.lang",
     "\$_(GET|post|cookie|files|session|env|phplib|GLOBALS|SERVER)\[",
-    "\<(iframe|script|body|img|layer|div|meta|style|base|object|input)",
+    "\<(iframe|script|body|layer|meta|style|base|object|input)",
+    #"\<(iframe|script|body|img|layer|div|meta|style|base|object|input)",
     "(onmouseover|onerror|onload)\=",
 ]
 
@@ -92,7 +93,3 @@ url_list = [
 ]
 
 useragent = ["(HTTrack|harvest|audit|dirbuster|pangolin|nmap|sqln|-scan|hydra|Parser|libwww|BBBike|sqlmap|w3af|owasp|Nikto|fimap|havij|PycURL|zmeu|BabyKrokodil|netsparker|httperf|bench)"]
-
-
-
-
