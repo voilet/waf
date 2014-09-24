@@ -19,8 +19,11 @@ from api.QQWry import *
 #导入白名单
 from config.whiteurl import *
 import acl
+from sqlalchemy.orm import sessionmaker
+from database.db import Hack, session
 
-tt = IPSearch('/home/jm/data/hacker/api/QQWry.Dat')
+
+tt = IPSearch('api/QQWry.Dat')
 
 class hack_filter:
     """
@@ -136,6 +139,13 @@ class hackerinfo:
                 "详细信息: %s\n" \
                 "匹配规则: %s\n--------------------------------------\n" % \
                 (self.src_time, domain, self.host, self.src_ip, hacker_city, hacker_addr, self.user_agent, self.body, self.headers, self.acl)
+            # try:
+            #     hack_db = Hack(src_time=self.src_time, url=domain, hack_city=hacker_city, hack_addr=hacker_addr, method="POST",
+            #                    host=self.host, ip=self.src_ip, acl=acl, headers=str(self.headers), user_agent=self.user_agent, cookie=self.cookie, post_data=self.body)
+            #     session.add(hack_db)
+            #     session.commit()
+            # except Exception, e:
+            #     print e
             return s
 
         else:
@@ -154,4 +164,11 @@ class hackerinfo:
                 "详细信息: %s\n" \
                 "匹配规则: %s\n--------------------------------------\n" % \
                 (self.src_time, domain, self.host, self.src_ip, hacker_city, hacker_addr, self.user_agent, self.headers, self.acl)
+            # try:
+            #     hack_db = Hack(src_time=self.src_time, url=domain, hack_city=hacker_city, hack_addr=hacker_addr, method="GET",
+            #                    host=self.host, ip=self.src_ip, acl=acl, headers=str(self.headers), user_agent=self.user_agent, cookie=self.cookie)
+            #     session.add(hack_db)
+            #     session.commit()
+            # except Exception, e:
+            #     print e
             return s

@@ -19,7 +19,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 
-DB_CONNECT_STRING = 'mysql+mysqldb://jm_waf:jumei_system@192.168.1.19/jm_waf?charset=utf8'
+DB_CONNECT_STRING = 'mysql+mysqldb://jm_waf:jumei_system@localhost/jm_waf?charset=utf8'
 engine = create_engine(DB_CONNECT_STRING, echo=False)
 DB_Session = sessionmaker(bind=engine)
 session = DB_Session()
@@ -45,7 +45,7 @@ class Hack(BaseModel):
     acl = Column(TEXT(80))
     src_time = Column(DATETIME(20))
     method = Column(CHAR(10))
-    headers = Column(TEXT())
+    headers = Column(TEXT(200))
     user_agent = Column(TEXT(80))
     cookie = Column(TEXT(80))
     post_data = Column(TEXT())

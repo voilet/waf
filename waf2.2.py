@@ -46,13 +46,13 @@ def callback(jdr, data):
                 print hack_status
 
     except Exception, e:
-        #print e
+        print e
         pass
 
 
 if __name__ == '__main__':
 
-    pc = pcap.pcap('p2p1')
+    pc = pcap.pcap('eth0')
     pc.setfilter('tcp port 80')
     pc.loop(0, callback)
     print 'All subprocesses done.'
