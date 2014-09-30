@@ -31,10 +31,9 @@ def callback(jdr, data):
         if tcp.dport == 80:
 
             http = dpkt.http.Request(tcp.data)
-
             #截取url以便白名单验证
             get_data_url = http.uri.split("?")[0]
-            #print http.uri
+            print http.uri,  http.headers["host"]
             check_data = hack_filter(http)
             result = check_data.run()
 
@@ -46,7 +45,7 @@ def callback(jdr, data):
                 print hack_status
 
     except Exception, e:
-        print e
+        # print e
         pass
 
 
